@@ -38,13 +38,13 @@ spec:
   selector:
     name: nodejs-web
   ports:
-    - port: 3000
+    - port: 80
       targetPort: 3000
       nodePort: 30001
 
 ---
 
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: hpa-name
