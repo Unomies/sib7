@@ -14,3 +14,24 @@ spec:
   selector:
     app: vote
   
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vote
+  labels:
+    name: vote
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: vote.dwyor.xyz
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: vote
+            port:
+              number: 8080
