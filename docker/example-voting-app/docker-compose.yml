@@ -19,6 +19,8 @@ services:
     networks:
       - front-tier
       - back-tier
+    links:
+      - redis
 
   result:
     build: ./result
@@ -35,7 +37,8 @@ services:
     networks:
       - front-tier
       - back-tier
-
+    links:
+      - db
   worker:
     build:
       context: ./worker
@@ -46,7 +49,9 @@ services:
         condition: service_healthy 
     networks:
       - back-tier
-
+    links:
+      - db
+      
   redis:
     image: redis:alpine
     volumes:
