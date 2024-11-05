@@ -6,6 +6,12 @@ services:
     image: redis:alpine
     networks:
       - frontend
+    deploy:
+      update_config:
+        parallelism: 2       # Number of tasks to update at once
+        delay: 10s           # Delay between updates
+        failure_action: rollback  # Roll back if an update fails
+        order: start-first
 
   db:
     image: postgres:15-alpine
@@ -16,6 +22,12 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - backend
+    deploy:
+      update_config:
+        parallelism: 2       # Number of tasks to update at once
+        delay: 10s           # Delay between updates
+        failure_action: rollback  # Roll back if an update fails
+        order: start-first
 
   vote:
     image: dockersamples/examplevotingapp_vote
@@ -24,7 +36,12 @@ services:
     networks:
       - frontend
     deploy:
-      replicas: 2
+      replicas: 3
+      update_config:
+        parallelism: 2       # Number of tasks to update at once
+        delay: 10s           # Delay between updates
+        failure_action: rollback  # Roll back if an update fails
+        order: start-first
 
   result:
     image: dockersamples/examplevotingapp_result
@@ -32,6 +49,12 @@ services:
       - 8081:80
     networks:
       - backend
+    deploy:
+      update_config:
+        parallelism: 2       # Number of tasks to update at once
+        delay: 10s           # Delay between updates
+        failure_action: rollback  # Roll back if an update fails
+        order: start-first
 
   worker:
     image: dockersamples/examplevotingapp_worker
@@ -40,6 +63,11 @@ services:
       - backend
     deploy:
       replicas: 2
+      update_config:
+        parallelism: 2       # Number of tasks to update at once
+        delay: 10s           # Delay between updates
+        failure_action: rollback  # Roll back if an update fails
+        order: start-first
 
 networks:
   frontend:
