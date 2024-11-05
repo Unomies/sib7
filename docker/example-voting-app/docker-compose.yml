@@ -21,7 +21,7 @@ services:
       - back-tier
     links:
       - redis
-
+      
   result:
     build: ./result
     # use nodemon rather than node for local dev
@@ -39,6 +39,7 @@ services:
       - back-tier
     links:
       - db
+
   worker:
     build:
       context: ./worker
@@ -51,7 +52,7 @@ services:
       - back-tier
     links:
       - db
-      
+
   redis:
     image: redis:alpine
     volumes:
