@@ -3,6 +3,7 @@ kind: PersistentVolume
 metadata:
   name: nodejs-stateful-volume
 spec:
+  storageClassName: gp2
   accessModes:
     - ReadWriteOnce
   capacity:
